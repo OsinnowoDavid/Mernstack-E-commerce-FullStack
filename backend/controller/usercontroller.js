@@ -2,8 +2,11 @@ import userModel from "../models/usermodel.js"
 import validator from "validator"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+
+
 const createtoken =(id) =>{
-    return jwt.sign({id},process.env.JWT_SECRET)
+    return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:"3h"} )
+    res.cookie("token" ,createtoken)
 }
 // routes for user login
 const loginuser = async ( req,res) => {
@@ -19,80 +22,61 @@ const loginuser = async ( req,res) => {
         }
         const ismatch = await bcrypt.compare(password, user.password)
 
-        if (
-            ismatch
-        ) {
-            const token = createtoken(user._id)
-            res.json({success:true,token
-
-            })
-            
+        if (!ismatch) {
+            return res.json({success:false, message:"wrong password"})
         }
-        
-        else{
-            res.json
-({success:false, message:"invalid password"})        }
-    } catch (error) {
+        const token= jwt.sign({name : user.name}, process.env.JWT_SECRET,{expiresIn:"3h"})
+        res.cookie("token", token,{httpOnly:true, maxAge:360000})
+        return res.json({status:true,message:"login successfully"})
+    
+    } catch (error) { 
         console.log(error)
         res.json({success:false,message:error.message}   )
 
-    }
+    } 
 
-}
-
-
-
+} 
 // routes for user registrration
-
-const registeruser = async ( req,res) =>{
+const registeruser = async (req, res) => {
     try {
-        const {name,email,password}= req.body
+        const { name, email, password } = req.body;
 
-        const exist = await userModel.findOne({email})
+        const exist = await userModel.findOne({ email });
 
         if (exist) {
-
-            return res.json({success:false,message:"user already exist"})
-            
+            return res.json({ success: false, message: "User already exists" });
         }
-        //  validating email and strong password
 
+        // Validating email and strong password
         if (!validator.isEmail(email)) {
-            
-            return res.json({success:false,message:"please enter a valid email"})
-            
+            return res.json({ success: false, message: "Please enter a valid email" });
         }
+
         if (password?.length < 8) {
-            
-            return res.json({success:false,message:"please enter a strong password "})
-            
+            return res.json({ success: false, message: "Please enter a strong password" });
         }
 
-        // hashing users password
-
-        const salt = await bcrypt.genSalt(10)
-
-        const hashedpassword = await bcrypt.hash(password,salt)
-
+        // Hashing user's password
+        const salt = await bcrypt.genSalt(10);
+    
+        const hashedpassword = await bcrypt.hash(password, salt)
         const newuser = new userModel({
             name,
             email,
-            password:hashedpassword
-        })
+            password: hashedpassword
+        });
 
-        const user = await newuser.save()
+        const user = await newuser.save();
 
-        const token = createtoken(user._id)
+        const token = createtoken(user._id);
 
-        res.json({success:true,token})
-
+        res.json({ success: true,token});
 
     } catch (error) {
-        console.log(error)
-        res.json({success:false,message:error.message}   )
+        console.log(error);
+        res.json({ success: false, message: error.message });
     }
-
-}
+};
 
 
 // routes for adimn login
