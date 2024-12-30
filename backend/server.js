@@ -37,6 +37,6 @@ app.use("/api/cart",cartroute)
 app.use("/api/category",categoryrouter)
 app.use("/api/flashproduct",flashproductroute)
 app.use("/api/hotprduct",hotproductroutes)
-app.listen(port, () => console.log({port})
+app.listen(port, 
 
 )

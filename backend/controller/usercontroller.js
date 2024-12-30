@@ -1,8 +1,7 @@
 import userModel from "../models/usermodel.js"
 import validator from "validator"
-import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-
+import { argon2d } from "argon2"
 
 const createtoken =(id) =>{
     return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:"3h"} )
@@ -20,7 +19,7 @@ const loginuser = async ( req,res) => {
             return res.json({success:false,message:"user does not exit"})
             
         }
-        const ismatch = await bcrypt.compare(password, user.password)
+        const ismatch = await argon2d.compare(password, user.password)
 
         if (!ismatch) {
             return res.json({success:false, message:"wrong password"})
@@ -57,9 +56,9 @@ const registeruser = async (req, res) => {
         }
 
         // Hashing user's password
-        const salt = await bcrypt.genSalt(10);
+        const salt = await argon2d.genSalt(10);
     
-        const hashedpassword = await bcrypt.hash(password, salt)
+        const hashedpassword = await argon2d.hash(password, salt)
         const newuser = new userModel({
             name,
             email,
