@@ -1,10 +1,8 @@
-// import userModel from "../models/usermodel.js"
-// import validator from "validator"
-// import bcrypt from "bcrypt"
-// import jwt from "jsonwebtoken"
-import bcrypt from "bcryptjs"
-import userModel from "../models/usermodel.js"
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken"; // Add this import
+import userModel from "../models/usermodel.js";
 import { generatetokenAndSetToken } from "../utils/genereatTokenAnssetCookie.js"
+
 // const createtoken =(id) =>{
 //     return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:"3h"} )
 //     res.cookie("token" ,createtoken)
@@ -213,8 +211,7 @@ res.status(200).json({success:true,user:{
 }
 
 
-
-const verifiedToken = async (req, res, next) => {
+const verifyToken = async (req, res, next) => {
     const token = req.headers['authorization']?.split(' ')[1];
     if (!token) {
         return res.status(403).json({ message: "No token provided" });
@@ -222,19 +219,13 @@ const verifiedToken = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await userModel.findById(decoded.id);
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
         req.userId = decoded.id;
         next();
     } catch (err) {
-        console.error("Error verifying token:", err);
-        return res.status(500).json({ message: "Server error" });
+        return res.status(401).json({ message: "Unauthorized" });
     }
-}
+};
 
-     
 // 
 
 const verifiedUser = async (req, res) => {
@@ -250,4 +241,4 @@ const verifiedUser = async (req, res) => {
     }
 }
 
- export {loginuser,registeruser, adminelogin , logout, checkauths,verifiedToken , verifiedUser}
+ export {loginuser,registeruser, adminelogin , logout, checkauths,verifyToken , verifiedUser}
