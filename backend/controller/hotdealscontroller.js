@@ -7,7 +7,7 @@ const listhotproduct = async (req,res) => {
         const hotproducts = await hotmodels.find()
         res.status(200).json({succes:true,hotproducts})
     } catch (error) {
-        console.log(err)
+        console.log(error)
         res.status(500).json({succes:false, message:"error"})
     }
 }
