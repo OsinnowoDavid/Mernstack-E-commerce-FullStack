@@ -5,7 +5,7 @@ const hotproductroutes = express.Router()
 
 hotproductroutes.post ("/addhotproduct",upload.fields([{name:"image1",maxCount:1},{name:"image2",maxCount:1},{name:"image3",maxCount:1},{name:"image4",maxCount:1}]),addhotproducts)
 hotproductroutes.get("/listhotproducts",listhotproduct)
-hotproductroutes.post("/singlehotproducts",singlehotproducts)
+hotproductroutes.get("/singlehotproducts/:id",singlehotproducts)
 hotproductroutes.post("/removehotproducts",removehotproduct)
 
 export default hotproductroutes

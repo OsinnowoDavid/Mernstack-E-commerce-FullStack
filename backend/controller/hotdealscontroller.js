@@ -54,9 +54,10 @@ const addhotproducts = async (req,res) =>{
 }
 
 const removehotproduct = async (req,res)=> {
+    const id = req.params.is
     try {
 
-        const removehot = await hotmodels.findByIdAndDelete(req.body.id)
+        const removehot = await hotmodels.findByIdAndDelete(id)
         res.json({succes:true,message:"hot product removed"})
         
     } catch (error) {
@@ -68,17 +69,17 @@ const removehotproduct = async (req,res)=> {
 
 const singlehotproducts = async (req,res)=>{
     try {
-        const {hotid} = req.body.id
-
-        const singlehotproducts = await hotmodels.findById(hotid)
-        res.status({success:true,singlehotproducts})
+        const id = req.params.id;
+        const product = await hotmodels.findById(id); // Corrected this line
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+        res.status(200).json({ success: true, product });
     } catch (error) {
-        console.log(error)
-        res.status(500).json({success:false,message:"eroor occured"})
-
-        
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
-}
+};
 
 
 export{listhotproduct,addhotproducts,removehotproduct,singlehotproducts}

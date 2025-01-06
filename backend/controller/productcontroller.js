@@ -1,5 +1,7 @@
 import {v2 as cloudinary} from "cloudinary"
 import productmodel from "../models/productmodel.js"
+// import Product from '../models/productModel.js';
+
 // function for  add product
 
 const addproduct = async (req,res)=>{
@@ -54,37 +56,67 @@ const listproduct = async (req, res) => {
 
 
 
-const removeproduct = async (req,res)=>{
+const removeproduct = async (req, res) => {
+
+    const id = req.params;
     try {
 
-        await productmodel.findByIdAndDelete(req.body.id)
-        res.json({succes:true,message:"product removed"})
-        
-    } catch (error) {
-        console.log(error)
-        res.json({succes:false, message:error.message})
-    }
-}
+        const product = await productmodel.findByIdAndDelete(id);
 
-const singleproduct = async (req,res)=>{
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        res.status(200).json({ success: true, message: "Product removed successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
+
+const singleproduct = async (req, res) => {
     try {
-
-        const {productid} = req.body
-        const product = await productmodel.findById(productid)
-        res.json({success:true,product})
-        
+        const id = req.params.id;
+        const product = await productmodel.findById(id); // Corrected this line
+        if (!product) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+        res.status(200).json({ success: true, product });
     } catch (error) {
-        
-        console.log(error)
-        res.json({succes:false, message:error.message})
-    
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
-}
+};
 
-const cartdate = async ()=>{
-    if (condition) {
-        
+const updateproduct = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const updatedProduct = await productmodel.findByIdAndUpdate(
+            id,
+            {
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                rate: req.body.rate,
+                image: req.body.image
+            },
+            { new: true } // This option returns the updated document
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ success: false, message: "Product not found" });
+        }
+
+        res.status(200).json({ success: true, product: updatedProduct });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
     }
-}
+};
 
-export {addproduct,listproduct,removeproduct,singleproduct}
+const cartdate = async () => {
+    // Your cartdate function implementation here
+};
+
+export {addproduct,listproduct,removeproduct,singleproduct,updateproduct,cartdate}
