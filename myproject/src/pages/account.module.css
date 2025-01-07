@@ -1,0 +1,35 @@
+.containerCustom{
+    background-color: rgb(117, 170, 170);
+    object-fit: contain;
+height: 1000px; 
+
+}
+
+.colum{
+    background-color: azure;
+    justify-content: space-between;
+    
+}
+
+.twoByTwoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Creates two equal-width columns */
+    grid-gap: 10px; /* Adds spacing between grid items */
+  }
+  
+  .colum {
+    border-radius: 5px;
+   width: 100px;
+   height: 100px;
+    background-color: #f8f9fa; /* Optional background for visibility */
+    
+  }
+
+  
+  .colCustom {
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  
