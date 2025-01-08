@@ -28,7 +28,7 @@ const deleteProduct = async (id) => {
 
   setLoading(true);
   try {
-    const response = await axios.delete(`/api/flashproduct/api/flashproduct${id}`); // Adjust your API URL
+    const response = await axios.delete(`${backendUrl}/api/flashproduct/api/flashproduct${id}`); // Adjust your API URL
     if (response.data.success) {
       (products.filter((product) => product.id !== id));
       alert("Product deleted successfully!");

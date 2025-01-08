@@ -4,12 +4,15 @@ import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { useShopContext } from '../../content';
 function NewItemSetiings() {
+const {id} = useParams()
+
   // const [products, setProducts] = useState([]);
   // const [loading, setLoading] = useState(false);
-
+const {backendUrl} = useShopContext()
   const { isLoading, error, data } = useQuery("edit&delete", () => {
-    return axios.get("http://localhost:4000/api/product/list");
+    return axios.get(`${backendUrl}/api/product/list`);
   });
 
   if (isLoading) {
@@ -21,10 +24,10 @@ function NewItemSetiings() {
     toast("Error");
     return <div>Error</div>;
   }
-const id = useParams()
+
   const handleDelete = async (id) => {
     try {
-      await axios.delete("http://localhost:4000/api/product/remove/"+id);
+      await axios.delete(`${backendUrl}/api/product/remove/${id}`);
       toast("Product deleted successfully");
       window.location.reload();
     } catch (err) {

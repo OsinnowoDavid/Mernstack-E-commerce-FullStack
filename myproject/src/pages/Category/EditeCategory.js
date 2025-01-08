@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import logo from "../../assests/images/aut.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { useShopContext } from '../../content';
 const EditCategory = () => {
+
+  const {backendUrl} = useShopContext()
   const { id } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState('');
@@ -27,7 +29,7 @@ const EditCategory = () => {
       
       if (image1) formData.append("image1", image1);
 
-      const response = await axios.put(`http://localhost:5000/api/categories/update/${id}`, formData, {
+      const response = await axios.put(`${backendUrl}/api/categories/update/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

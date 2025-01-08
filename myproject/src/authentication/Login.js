@@ -3,10 +3,12 @@ import axios from "axios"
 import { Link, useNavigate } from 'react-router-dom'
 import classes from "../assests/auth.module.css"
 import Message from '../pages/Message'
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useShopContext } from '../content'
 function Login() {
   
-
+const {backendUrl} = useShopContext()
 const navigate = useNavigate()
 
    const [values, setValues] = useState({
@@ -21,8 +23,9 @@ const navigate = useNavigate()
    const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    const response = await axios.post("http://localhost:4000/api/user/login",values)
+    const response = await axios.post(`${backendUrl}/api/user/login`,values)
     if (response.status === 201){
+      toast.success("Login successful!");
       navigate("/preview/:heroid")
       // localStorage.setItem("token", response.data.token)
       
@@ -30,53 +33,45 @@ const navigate = useNavigate()
     // navigate("/")
 
     } catch(err){
+      toast.error("Login failed. Please try again.");
   console.log(err )}
 
  }
 
   return (
-    
-  <div className='justify-items-center pb-32 bg-slate-300 border-s-violet-300 rounded-xl xl:'>
-    <h1 className='text-white pt-20 mb-10 font-bold className="form-group"form-group'>Login Form</h1>
-    <form className='justify-items-center w-96 pb-96 pt-16  border-x-teal-50 bg-white'>
-      <div  >
-        <label className='mb-2'>Email</label><br></br>
-        <input
-          type="mail"
-          placeholder='Valid Email'
-          className="form-control border-spacing-10 mb-10 w-72 h-10 p-1 focus:bg-amber-400 "
-          name='email' trim onChange={handleChange}
-          required
-        />
-     
+    <div className='flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500'>
+      <div className='bg-white p-10 rounded-lg shadow-lg w-full max-w-md'>
+        <h1 className='text-2xl font-bold text-center text-gray-800 mb-6'>Login Form</h1>
+        <form onSubmit={handleSubmit} className='space-y-6'>
+          <div>
+            <label className='block text-gray-700 mb-2'>Email</label>
+            <input
+              type="email"
+              placeholder='Valid Email'
+              className="form-control w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name='email' trim onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className='block text-gray-700 mb-2'>Password</label>
+            <input
+              name='password' trim onChange={handleChange}
+              className='form-control w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
+              type='password' placeholder='Please use a strong Password'
+              required
+            />
+          </div>
+          <button type='submit' className='w-full py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300'>Submit</button>
+          <div className='text-center text-gray-600 mt-4'>
+            <span>Or</span>
+          </div>
+          <div className='text-center'>
+            <Link to="/register" className='text-blue-500 hover:underline'>Create Account</Link>
+          </div>
+        </form>
       </div>
-      <div>
-        <label className='mb-2'>Password</label><br></br>
-
-      <input name='password' trim onChange={handleChange} className=' form-control mb-10 w-72 h-10 p-1 focus:bg-amber-400' type='Password' placeholder='Please use a strong Password'></input>
-      </div>
-
-      <h1>Or</h1>
-
-      <div className='grid grid-cols-2 gap-5'>
-
-      <button onClick={handleSubmit} className='hover:bg-green-500'>Submit</button>
-      
-      <h1>   
-      <Link className='' to="/register">
-      Create Account
-
-      </Link></h1>
-
-      <hr className=''></hr>
-      </div>
-
-      
-      <h1>Or Sign up with </h1>
-      
-    </form>
-    <hr></hr>
-  </div>
+    </div>
   )
 }
 

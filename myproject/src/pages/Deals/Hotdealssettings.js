@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
+import { useShopContext } from '../../content'
 function HotDealSettings () {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
+const {backendUrl} = useShopContext()
   const {isloading, error, data} = useQuery("edite$delet" , ()=>{
-    return axios.get("http://localhost:4000/api/hotprduct/listhotproducts")
+    return axios.get(`${backendUrl}/api/hotprduct/listhotproducts`)
 })
 if (isloading){
     return(

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import { useShopContext } from '../../content';
 function EditandDeletePage() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+  const {backendUrl} = useShopContext()
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/products');
+        const response = await axios.get(`${backendUrl}/api/products`);
         setData(response.data);
       } catch (err) {
         setError(err);
@@ -21,7 +22,7 @@ function EditandDeletePage() {
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`http://localhost:4000/api/products/${productId}`);
+      await axios.delete(`${backendUrl}/api/products/${productId}`);
       setData((prevData) => ({
         ...prevData,
         data: {

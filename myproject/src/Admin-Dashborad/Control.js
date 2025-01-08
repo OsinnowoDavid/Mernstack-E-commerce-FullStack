@@ -36,7 +36,6 @@ function Control() {
     <nav className={classes.nav}>
       <div>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
       
       </form>
         <ul className={classes.firstnav}>

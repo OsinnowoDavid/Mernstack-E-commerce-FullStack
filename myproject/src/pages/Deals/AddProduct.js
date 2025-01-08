@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify'; 
 import logo from "../../assests/images/aut.jpg"
+import { useShopContext } from '../../content';
 // import { toast } from 'react-toastify';
 const AddProduct = () => {
+  const {backendUrl} = useShopContext()
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [rate, setrate] = useState('');
@@ -61,7 +63,7 @@ const [image1, setimage1] = useState(false);
 // image3 && formData.append("image3", image3)
 // image4 && formData.append("image4", image4)
 
-      const response = await axios.post('http://localhost:4000/api/product/add', formData, {
+      const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
         
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -106,91 +108,59 @@ const [image1, setimage1] = useState(false);
 
   return (
     <>
-    
-    <h1 className='text-center '>Add Product </h1>
-    <form onSubmit={handleSubmit} className='ml-10 mr-10'>
-      <div className="form-group">
-        <label htmlFor="name">Product Name</label>
-        <input
-          type="text"
-          id="name"
-          className="form-control"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="price">Price</label>
-        <input
-          type="text"
-          id="price"
-          className="form-control"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          className="form-control"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        ></textarea>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="rate">Rate</label>
-        <textarea
-          id="description"
-          className="form-control"
-          value={rate}
-          onChange={(e) => setrate(e.target.value)}
-          required
-        ></textarea>
-      </div>
-      
-      {/* {['image1', 'image2', 'image3', 'image4'].map((image) => (
-        <div className="form-group" key={image}>
-          <label htmlFor={image}>{`Upload ${image}`}</label>
+      <h1 className='text-center text-2xl font-bold mb-4'>Add Product</h1>
+      <form onSubmit={handleSubmit} className='mx-10 p-6 bg-white shadow-md rounded'>
+        <div className="form-group mb-4">
+          <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Product Name</label>
           <input
-            type="file"
-            id={image}
-            className="form-control"
-            accept="image/*"
-            onChange={handleImageChange}
+            type="text"
+            id="name"
+            className="form-control border rounded w-full py-2 px-3 text-gray-700"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
-            name={image} // Set name to match the key in the state
           />
         </div>
-      ))}
-
-       */}
-
-       <label className='mt-5 w-64'>
-        <img className='w-64 object-cover' src={ !image1 ? logo :URL.createObjectURL(image1)} alt='image1'/> click me to pick image
-        <input onChange={(e) =>setimage1(e.target.files[0])} type='file' id='image1' hidden></input>
-       </label>
-{/* 
-       <label>
-       <img  className='w-20'src={ !image2 ? logo :URL.createObjectURL(image2)} alt='image1'/>
-        <input onChange={(e) =>setimage2(e.target.files[0])} type='file' id='image2' hidden></input>
-       </label>
-
-       <label>
-       <img src={ !image3 ? logo :URL.createObjectURL(image3)} alt='image1'/>
-        <input onChange={(e) =>setimage3(e.target.files[0])} type='file' id='image3' hidden></input>
-       </label>
-
-       <label>
-       <img className='w-20' src={ !image4 ? logo :URL.createObjectURL(image4)} alt='image4'/>
-        <input onChange={(e) =>setimage4(e.target.files[0])} type='file' id='image4' hidden></input>
-       </label> */}
-      <button type="submit" className="">Add New Item Deal</button>
-    </form>
+        <div className="form-group mb-4">
+          <label htmlFor="price" className="block text-gray-700 font-bold mb-2">Price</label>
+          <input
+            type="text"
+            id="price"
+            className="form-control border rounded w-full py-2 px-3 text-gray-700"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group mb-4">
+          <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Description</label>
+          <textarea
+            id="description"
+            className="form-control border rounded w-full py-2 px-3 text-gray-700"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          ></textarea>
+        </div>
+        <div className="form-group mb-4">
+          <label htmlFor="rate" className="block text-gray-700 font-bold mb-2">Rate</label>
+          <textarea
+            id="rate"
+            className="form-control border rounded w-full py-2 px-3 text-gray-700"
+            value={rate}
+            onChange={(e) => setrate(e.target.value)}
+            required
+          ></textarea>
+        </div>
+        <label className='mt-5 w-64 block'>
+          <img className='w-64 object-cover mb-2' src={!image1 ? logo : URL.createObjectURL(image1)} alt='image1' />
+          <span className="block text-gray-700 font-bold mb-2">Click to pick image</span>
+          <input onChange={(e) => setimage1(e.target.files[0])} type='file' id='image1' hidden />
+        </label>
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Add New Item Deal
+        </button>
+      </form>
     </>
   );
 };

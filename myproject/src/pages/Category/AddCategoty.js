@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import logo from "../../assests/images/aut.jpg"
+import { useShopContext } from '../../content';
 const Addcategory= () => {
+  const {backendUrl} = useShopContext()
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -55,7 +57,7 @@ const [image4, setimage4] = useState(false)
 // image3 && formData.append("image3", image3)
 // image4 && formData.append("image4", image4)
 
-      const response = await axios.post('http://localhost:5000/api/categories/postcategory', formData, {
+      const response = await axios.post(`${backendUrl}/api/categories/postcategory`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

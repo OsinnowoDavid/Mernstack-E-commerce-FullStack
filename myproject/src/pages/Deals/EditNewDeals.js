@@ -4,10 +4,10 @@ import logo from "../../assests/images/aut.jpg";
 import { useNavigate, useParams } from 'react-router-dom';
 // import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-
+import { useShopContext } from '../../content';
 const EditNewDeals = () => {
 
-
+const {backendUrl} = useShopContext()
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const EditNewDeals = () => {
   // const [image2, setimage2] = useState(null);
   // const [image3, setimage3] = useState(null);
   // const [image4, setimage4] = useState(null);
-useEffect(() => { axios.get("http://localhost:4000/api/product/single/"+id).then((response) => {
+useEffect(() => { axios.get(`${backendUrl}/api/product/single/${id}`).then((response) => {
   console.log(response.data.product);
   setName(response.data.product.name);
   setDescription(response.data.product.description);
@@ -33,80 +33,65 @@ useEffect(() => { axios.get("http://localhost:4000/api/product/single/"+id).then
 
 
   // setdetails(response.data);})
-}).catch((error) => {error.message})},[]);
+}).catch((error) => {console.log(error.message)})},[id]);
 
 
 const update = async (e) => {
   e.preventDefault();
-  axios.put("http://localhost:4000/api/product/update/"+id, {name,price,description,image1}).then((response) => {
+  axios.put(`${backendUrl}/api/product/update/${id}`, {name,price,description,image1}).then((response) => {
     console.log(response.data);
     navigate("/");
 
-}).catch((error) => {error.message});}
+}).catch((error) => {console.log(error.message);})}
   
 
   return (
-    
-<div>
-  
-{/* {data?.data.product.map((update) =>( */}
-
-      <div >
-      
-
-
+    <div className="container mx-auto p-4">
       <h1 className='text-center font-bold mb-9 mt-9'>Edit New Item Deal 2</h1>
-      <form  className='ml-10 mr-10' onSubmit={update} >
-        <div className="form-group">
-          <label htmlFor="name">Category Name</label>
+      <form className='ml-10 mr-10' onSubmit={update}>
+        <div className="form-group mb-4">
+          <label htmlFor="name" className="block text-gray-700">Category Name</label>
           <input
             type="text"
             id="name"
-            className="form-control"
+            className="form-control w-full px-3 py-2 border border-gray-300 rounded-md"
             value={name}
             required
-            onChange ={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="price">Price</label>
+        <div className="form-group mb-4">
+          <label htmlFor="price" className="block text-gray-700">Price</label>
           <input
             type="text"
             id="price"
-            className="form-control"
+            className="form-control w-full px-3 py-2 border border-gray-300 rounded-md"
             value={price}
             required
-            onChange ={(e) => setPrice(e.target.value)}
-
+            onChange={(e) => setPrice(e.target.value)}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
+        <div className="form-group mb-4">
+          <label htmlFor="description" className="block text-gray-700">Description</label>
           <textarea
             id="description"
-            className="form-control"
+            className="form-control w-full px-3 py-2 border border-gray-300 rounded-md"
             value={description}
             required
             onChange={(e) => setDescription(e.target.value)}
-            // onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
-
-        <label className='w-60 mt-10'>
-        <img className='w-20' src={image1 ? URL.createObjectURL(image1) : imageurl} alt='image1'/>
-        <input onChange={(e) =>setimage1(e.target.files[0])} type='file' id='image1' hidden></input>
-        <label htmlFor='image1' className='bg-yellow-300 text-white p-2 rounded-lg'>Upload Image</label>
-       </label>      
-       
-         <button type="submit" className="hover:bg-green-500">Update New deals</button>
+        <div className="form-group mb-4">
+          <label className='block text-gray-700'>
+            <img className='w-20 mb-2' src={image1 ? URL.createObjectURL(image1) : imageurl} alt='image1' />
+            <input onChange={(e) => setimage1(e.target.files[0])} type='file' id='image1' hidden />
+            <label htmlFor='image1' className='bg-yellow-300 text-white p-2 rounded-lg cursor-pointer'>Upload Image</label>
+          </label>
+        </div>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700">Update New deals</button>
       </form>
-    
-      </div>
-      
-    {/* ))} */}
-  
-  
-</div>)
+    </div>
+  )
 };
 
 export default EditNewDeals;

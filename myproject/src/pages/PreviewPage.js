@@ -4,14 +4,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import Footer from "../landingpage/Footer";
 import Cookies from 'js-cookie';
-
+import { useShopContext } from '../content';
 function PreviewPage() {
   const navigate = useNavigate();
-
+const {backendUrl} = useShopContext()
   const fetchUser = async () => {
     try {
       const token = Cookies.get('token');
-      const response = await axios.get('http://localhost:4000/api/user/verified', {
+      const response = await axios.get(`${backendUrl}/api/user/verified`, {
         headers: {
           "Authorization": `Bearer ${token}`
         },

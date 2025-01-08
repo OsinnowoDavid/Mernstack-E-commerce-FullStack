@@ -28,7 +28,10 @@ function Footer() {
         <div className='ml-10'>
           <h1>
            Go to the navbar atthe top of the website you will find edit product<br></br>
-           you can add product and it will be displayed on the home page, you can also delete and edite 
+           you can add product and it will be displayed on the home page, you can also delete and edite <br></br>
+
+          Please Note: You are only allowed to make the crud opreation on the new items settings
+    
 
 
 

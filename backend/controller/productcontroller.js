@@ -57,8 +57,7 @@ const listproduct = async (req, res) => {
 
 
 const removeproduct = async (req, res) => {
-
-    const id = req.params;
+    const { id } = req.params; // Correctly extract the id parameter
     try {
 
         const product = await productmodel.findByIdAndDelete(id);

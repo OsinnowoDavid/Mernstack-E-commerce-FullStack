@@ -3,85 +3,83 @@ import axios from "axios"
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import classes from "../assests/auth.module.css"
+import { useShopContext } from '../content'
+import { toast } from 'react-toastify'; // Add this import
+import 'react-toastify/dist/ReactToastify.css'; // Add this import
+
 function Register() {
+  const {backendUrl} = useShopContext()
+  const navigate = useNavigate()
 
-const navigate = useNavigate()
-
-   const [values, setvalues] = useState({
+  const [values, setvalues] = useState({
     name:"",
     email:"",
     password:""
-   })
-   const handlechange = (e)=>{
+  })
+
+  const handlechange = (e)=>{
     setvalues({...values,[e.target.name]:e.target.value})
-   }
-   const handlesumit = async (e) => {
+  }
+
+  const handlesumit = async (e) => {
     e.preventDefault();
     try {
-    const response = await axios.post("http://localhost:4000/api/user/register",values)
-    if (response.status ===201 ){
-      navigate("/Login")
-    }
+      const response = await axios.post(`${backendUrl}/api/user/register`,values)
+      if (response.status === 201) {
+        toast.success('Registration successful!'); // Add this line
+        navigate("/Login")
+      }
     } catch(err){
-  console.log(err.message)}
-
- }
+      toast.error('Registration failed. Please try again.'); // Add this line
+      console.log(err.message)
+    }
+  }
 
   return (
-  <div className='justify-items-center pb-32 bg-slate-300 border-s-violet-300 rounded-xl'>
-    <h1 className='text-white pt-20 mb-10 font-bold'>Login Form</h1>
-    <form className='justify-items-center w-96 pb-96 pt-16 border-x-teal-50 bg-white'>
-      <div>
-        <label className='mb-2'>Name</label><br />
-        <input
-          type="text"
-          placeholder='Your Full Name'
-          className="form-control border-spacing-10 mb-10 w-72 h-10 p-1 focus:bg-amber-400"
-          name='name'
-          onChange={handlechange}
-          required
-        />
+    <div className='flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-500'>
+      <div className='bg-white p-10 rounded-lg shadow-lg w-full max-w-md'>
+        <h1 className='text-2xl font-bold text-center text-gray-800 mb-6'>Register Form</h1>
+        <form onSubmit={handlesumit} className='space-y-6'>
+          <div>
+            <label className='block text-gray-700 mb-2'>Name</label>
+            <input
+              type="text"
+              placeholder='Your Full Name'
+              className="form-control w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name='name'
+              onChange={handlechange}
+              required
+            />
+          </div>
+          <div>
+            <label className='block text-gray-700 mb-2'>Email</label>
+            <input
+              type="email"
+              placeholder='Valid Email'
+              className="form-control w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              name='email' trim onChange={handlechange}
+              required
+            />
+          </div>
+          <div>
+            <label className='block text-gray-700 mb-2'>Password</label>
+            <input
+              name='password' trim onChange={handlechange}
+              className='form-control w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500'
+              type='password' placeholder='Please use a strong Password'
+              required
+            />
+          </div>
+          <button type='submit' className='w-full py-3 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300'>Submit</button>
+          <div className='text-center text-gray-600 mt-4'>
+            <span>Or</span>
+          </div>
+          <div className='text-center'>
+            <Link to="/login" className='text-blue-500 hover:underline'>Already have an account? Login</Link>
+          </div>
+        </form>
       </div>
-      <div>
-        <label className='mb-2'>Email</label><br></br>
-        <input
-          type="email"
-          placeholder='Valid Email'
-          className="form-control border-spacing-10 mb-10 w-72 h-10 p-1 focus:bg-amber-400 "
-          name='email' trim onChange={handlechange}
-          required
-        />
-     
-      </div>
-                
-      <div>
-        <label className='mb-2'>Password</label><br></br>
-
-      <input name='password' trim onChange={handlechange} className=' form-control mb-10 w-72 h-10 p-1 focus:bg-amber-400' type='Password' placeholder='Please use a strong Password'></input>
-      </div>
-
-      <h1>Or</h1>
-
-      <div className='grid grid-cols-2 gap-5'>
-
-      <button onClick={handlesumit} className='hover:bg-green-500'>Submit</button>
-      
-      <h1>   
-      <Link className='' to="/login">
-      already have Account? login
-
-      </Link></h1>
-
-      <hr className=''></hr>
-      </div>
-
-      
-      <h1>Or Sign up with </h1>
-      
-    </form>
-    <hr></hr>
-  </div>
-
+    </div>
   )
 }
 

@@ -3,10 +3,15 @@ import axios from "axios";
 import newdeal from "../assests/images/newdeal.JPG";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useShopContext } from "../content.js"
 
 function Newitems() {
+  const { backendUrl } = useShopContext();
+
   const { isLoading, data, error } = useQuery("fetchNewdeal", () => {
-    return axios.get("http://localhost:4000/api/product/list");
+
+    return axios.get( `${backendUrl}/api/product/list`);
+
   });
 
   if (isLoading) {
@@ -20,6 +25,7 @@ function Newitems() {
   }
 
   if (error) {
+    console.log(error)
     toast("We will be back", {
       position: "top-right",
       autoClose: 5000,

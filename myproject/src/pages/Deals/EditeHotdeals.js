@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useShopContext } from '../../content';
 function EditeHotdeals() {
-
+ const {backendUrl} = useShopContext()
 
 
     const {id}  = useParams();
@@ -18,7 +19,7 @@ function EditeHotdeals() {
   const [image1, setimage1] = useState(false);
   const [imageurl, setimageurel] = useState(false);
 
-    useEffect(() => { axios.get("http://localhost:4000//api/hotprduct/singlehotproducts/"+id).then((response) => {
+    useEffect(() => { axios.get(`${backendUrl}/api/hotprduct/singlehotproducts/${+id}`).then((response) => {
         console.log(response.data);
         setName(response.data.product.name);
         setDescription(response.data.product.description);
@@ -30,7 +31,7 @@ function EditeHotdeals() {
       }).catch((error) => {error.message})},[]);
       const update = async (e) => {
         e.preventDefault();
-        axios.put("http://localhost:4000/api/product/update/"+id, {name,price,description,image1}).then((response) => {
+        axios.put(`${backendUrl}/api/product/update/${id}`, {name,price,description,image1}).then((response) => {
           console.log(response.data);
           navigate("/");
       
