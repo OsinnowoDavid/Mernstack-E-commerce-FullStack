@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
+import { useShopContext } from '../../content'
+
 function FlashDealsSettings () {
+  const {backendUrl}= useShopContext()
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
 
   const {isloading, error, data} = useQuery("edite$delet" , ()=>{
-    return axios.get("http://localhost:4000/api/flashproduct/getflashproduct")
+    return axios.get(`${backendUrl}/api/flashproduct/getflashproduct`)
 })
 if (isloading){
     return(

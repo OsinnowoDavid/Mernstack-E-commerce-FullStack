@@ -19,23 +19,30 @@ function EditeHotdeals() {
   const [image1, setimage1] = useState(false);
   const [imageurl, setimageurel] = useState(false);
 
-    useEffect(() => { axios.get(`${backendUrl}/api/hotprduct/singlehotproducts/${+id}`).then((response) => {
-        console.log(response.data);
-        setName(response.data.product.name);
-        setDescription(response.data.product.description);
-        setPrice(response.data.product.price);
-        setimageurel(response.data.product.image[0]);
-      
-      
-        // setdetails(response.data);})
-      }).catch((error) => {error.message})},[]);
+    useEffect(() => { 
+        axios.get(`${backendUrl}/api/hotprduct/singlehotproducts/${+id}`)
+            .then((response) => {
+                console.log(response.data);
+                setName(response.data.product.name);
+                setDescription(response.data.product.description);
+                setPrice(response.data.product.price);
+                setimageurel(response.data.product.image[0]);
+            })
+            .catch((error) => {
+                console.error(error.message);
+            });
+    }, []);
       const update = async (e) => {
         e.preventDefault();
-        axios.put(`${backendUrl}/api/product/update/${id}`, {name,price,description,image1}).then((response) => {
-          console.log(response.data);
-          navigate("/");
-      
-      }).catch((error) => {error.message});}
+        axios.put(`${backendUrl}/api/product/update/${id}`, {name,price,description,image1})
+            .then((response) => {
+                console.log(response.data);
+                navigate("/");
+            })
+            .catch((error) => {
+                console.error(error.message);
+            });
+    }
               
       return (
     
