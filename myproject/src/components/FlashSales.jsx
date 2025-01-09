@@ -4,7 +4,7 @@ import axios from "axios"
 import classes from "../Admin-Dashborad/Products.module.css"
 import { toast } from "react-toastify"
 import { Link } from "react-router-dom"
-import flashdeal from "../assests/images/flashdeal.JPG"
+import flashdeal from "../assests/images/flashdeal.jpg"
 function FlashSales() {
   
     const {isloading,data, loading,error} = useQuery("fetchflshseals",()=>{
