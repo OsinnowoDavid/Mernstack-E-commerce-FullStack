@@ -29,7 +29,7 @@ import EditNewDeals from "./pages/Deals/EditNewDeals.js";
 import FlashDealsSettings from "./pages/Deals/FlashdealSettings.js";
 import AddFlashDeals from "./pages/Deals/AddFlashDeas.js";
 import EditFlashDeals from "./pages/Deals/EditFlashDeals.js";
-import PreviewPage from "../src/pages/PreviewPage.js";
+import PreviewPage from "./pages/PreviewPage.js";
 import { Component } from "./components/Carousel.js";
 import Aboutus from "./pages/Aboutus.js";
 import { ToastContainer } from "react-toastify";

@@ -1,0 +1,17 @@
+.logo{
+    width: 100px;
+}
+.bar{
+    background-color: white;
+
+}
+.nav{
+    margin-bottom: 10px;
+}
+.pages li{
+color: orange;
+
+}
+a.active {
+text-decoration: underline;
+}
