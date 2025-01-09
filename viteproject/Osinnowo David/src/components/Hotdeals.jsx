@@ -4,11 +4,13 @@ import axios from "axios"
 import classes from "../Admin-Dashborad/Products.module.css"
 import { toast } from "react-toastify"
 import { Link } from "react-router-dom"
-import hotdeal from "../assests/images/hotdeal.JPG"
+import hotdeal from "../assests/images/hotdeal.jpg"
+import { useShopContext } from '../content'
 function Hotdeals() {
-  
+
+  const {backendUrl} = useShopContext()
   const {isloading,data, loading,error} = useQuery("fetcthotdeal",()=>{
-    return axios.get("http://localhost:4000/api/hotprduct/listhotproducts")
+    return axios.get(`${backendUrl}/api/hotprduct/listhotproducts`)
 })
 if(loading){
     return(
