@@ -2,14 +2,14 @@ import express from "express"
 import cors from "cors"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
-import connectdb from "./config/mongodb.js"
-import connectcloudinary from "./config/cloudinary.js"
-import userrouter from "./routes/userroute.js"
-import productrouter from "./routes/productroute.js"
-import cartroute from "./routes/cartroute.js"
-import categoryrouter from "./routes/categoryroutes.js"
-import flashproductroute from "./routes/flashproductroutes.js"
-import hotproductroutes from "./routes/hotproductroutes.js"
+import connectdb from "../config/mongodb.js"
+import connectcloudinary from "../config/cloudinary.js"
+import userrouter from "../routes/userroute.js"
+import productrouter from "../routes/productroute.js"
+import cartroute from "../routes/cartroute.js"
+import categoryrouter from "../routes/categoryroutes.js"
+import flashproductroute from "../routes/flashproductroutes.js"
+import hotproductroutes from "../routes/hotproductroutes.js"
 
 
 
@@ -25,12 +25,15 @@ connectcloudinary()
 // add midllewear
 app.use(express.json())
 app.use(cors({
-    origin:["https://mernstack-e-commerce-full-stack-qa9r.vercel.app"],
+    origin:["https://mernstack-e-commerce-full-stack-5uhg.vercel.app"],
     methods:["GET", "POST","DELETE", "PUT"],
     credentials:true
 }))
 app.use(cookieParser())
 
+
+app.get("/", (req,res) => {
+    res.json ("hello")})
 // endpoint
 app.use("/api/user",userrouter)
 app.use("/api/product",productrouter)

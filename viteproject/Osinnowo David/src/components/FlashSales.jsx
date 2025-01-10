@@ -5,10 +5,12 @@ import classes from "../Admin-Dashborad/Products.module.css"
 import { toast } from "react-toastify"
 import { Link } from "react-router-dom"
 import flashdeal from "../assests/images/flashdeal.jpg"
+import { useShopContext } from '../content'
 function FlashSales() {
   
+  const {backendUrl} = useShopContext()
     const {isloading,data, loading,error} = useQuery("fetchflshseals",()=>{
-        return axios.get("http://localhost:4000/api/flashproduct/getflashproduct")
+        return axios.get(`${backendUrl}/api/flashproduct/getflashproduct`)
     })
     if(loading){
         return(

@@ -1,7 +1,17 @@
 {
-    "rewrites":[
+    "installCommand":"npm install --legacy-peer-deps",
+    "version":2,
+    "builds":[
+{"src":"api/Index.js", "use": "@vercel/node"},
+        {"src":"src/**/*",
+            "use":"@vercel/static"}
+
+    ],
+    "routes":[
         {
-            "source":"/(.*)","destination":"/"
+            "src":"/(.*)",
+            "dest": "api/Index.js"
         }
     ]
-}
+        
+    }
