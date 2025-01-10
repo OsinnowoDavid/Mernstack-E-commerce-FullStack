@@ -30,7 +30,8 @@ app.use(cors({
     credentials:true
 }))
 app.use(cookieParser())
-
+app.get("/" (req,res) => {
+    res.josin("hello")})
 // endpoint
 app.use("/api/user",userrouter)
 app.use("/api/product",productrouter)
