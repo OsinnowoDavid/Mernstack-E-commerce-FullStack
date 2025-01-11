@@ -25,7 +25,7 @@ connectcloudinary()
 // add midllewear
 app.use(express.json())
 app.use(cors({
-    origin:["https://mernstack-e-commerce-full-stack-5uhg.vercel.app"],
+    origin:["https://front111-e-commerce-full-stack-q3nw.vercel.app"],
     methods:["GET", "POST","DELETE", "PUT"],
     credentials:true
 }))
