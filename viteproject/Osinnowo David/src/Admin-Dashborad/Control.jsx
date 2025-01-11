@@ -38,28 +38,7 @@ function Control() {
       <form class="d-flex">
       
       </form>
-        <ul className={classes.firstnav}>
-          <Link to="/Home">
-          <li>
-            Retail and Wholesale
-          </li>
-          </Link>
-          
-
-          <Link>
-          <li>
-            Manufacterers
-          </li>
-          </Link>
-          
-
-          <Link>
-          <li>
-            Source By Region
-          </li>
-          </Link>
-          
-        </ul>
+       
 <SmallBanner/>
       </div>
     </nav>
