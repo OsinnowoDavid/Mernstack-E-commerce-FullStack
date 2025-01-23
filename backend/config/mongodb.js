@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import "dotenv/config"
 
 const connectdb = async () => {
     try {
@@ -9,7 +8,7 @@ const connectdb = async () => {
 
         mongoose.connection.on("error", (err) => {
             console.error("DB connection error:", err);
-            console.log(err)
+            console.log(err);
         });
 
         const uri = `${process.env.MONGODB_URI}/e-commerceProject`;
