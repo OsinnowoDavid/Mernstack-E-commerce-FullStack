@@ -42,5 +42,4 @@ app.use("/api/category",categoryrouter)
 app.use("/api/flashproduct",flashproductroute)
 app.use("/api/hotprduct",hotproductroutes)
 app.listen(port, 
-
 )

@@ -51,11 +51,7 @@ function Overview() {
       </ul>
     </div>
     <div className='ml-10 mt-10 mb-10  mr-10'>
-        {/* <Link> <h1 className="mt-3 bg-slate-100 rounded-sm pt-2 pb-2 pl-3 font-medium">logo<span>Shop Profile</span></h1></Link>
-        <Link> <h1 className="mt-3 bg-slate-100 rounded-sm pt-2 pb-2 pl-3 font-medium">logo<span>Purchase History</span></h1></Link>
-        <Link> <h1 className="mt-3 bg-slate-100 rounded-sm pt-2 pb-2 pl-3 font-medium">logo<span>Products</span></h1></Link>
-       <Link>  <h1 className="mt-3 bg-slate-100 rounded-sm pt-2 pb-2 pl-3 font-medium">logo<span>Upload products</span></h1></Link>
-        <Link> <h1 className="mt-3 bg-slate-100 rounded-sm pt-2 pb-2 pl-3 font-medium">logo<span>Refund Request</span></h1></Link> */}
+   
         <Link to="/Appsettings" > <h1 className="mt-3 bg-slate-100 rounded-sm pt-2 pb-2 pl-3 font-medium"><span>App Settings</span></h1></Link>
     </div>
     
