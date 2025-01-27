@@ -10,7 +10,7 @@ function Hotdeals() {
 
   const {backendUrl} = useShopContext()
   const {isloading,data, loading,error} = useQuery("fetcthotdeal",()=>{
-    return axios.get(`${backendUrl}/api/hotprduct/listhotproducts`)
+    return axios.get(`${backendUrl}/api/hotproducts/listhotproducts`)
 })
 if(loading){
     return(

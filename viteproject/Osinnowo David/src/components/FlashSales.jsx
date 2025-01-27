@@ -10,7 +10,7 @@ function FlashSales() {
   
   const {backendUrl} = useShopContext()
     const {isloading,data, loading,error} = useQuery("fetchflshseals",()=>{
-        return axios.get(`${backendUrl}/api/flashproduct/getflashproduct`)
+        return axios.get(`${backendUrl}/api/flashproducts/getflashproduct`)
     })
     if(loading){
         return(

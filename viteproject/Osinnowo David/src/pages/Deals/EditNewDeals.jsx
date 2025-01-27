@@ -23,7 +23,7 @@ const {backendUrl} = useShopContext()
   // const [image2, setimage2] = useState(null);
   // const [image3, setimage3] = useState(null);
   // const [image4, setimage4] = useState(null);
-useEffect(() => { axios.get(`${backendUrl}/api/product/single/${id}`).then((response) => {
+useEffect(() => { axios.get(`${backendUrl}/api/products/single/${id}`).then((response) => {
   console.log(response.data.product);
   setName(response.data.product.name);
   setDescription(response.data.product.description);
@@ -37,7 +37,7 @@ useEffect(() => { axios.get(`${backendUrl}/api/product/single/${id}`).then((resp
 
 const update = async (e) => {
   e.preventDefault();
-  axios.put(`${backendUrl}/api/product/update/${id}`, {name,price,description,image1}).then((response) => {
+  axios.put(`${backendUrl}/api/products/update/${id}`, {name,price,description,image1}).then((response) => {
     console.log(response.data);
     navigate("/");
 

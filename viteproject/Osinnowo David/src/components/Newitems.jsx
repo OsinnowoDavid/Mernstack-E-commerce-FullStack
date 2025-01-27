@@ -3,15 +3,13 @@ import axios from "axios";
 import newdeal from "../assests/images/newdeal.jpg";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { useShopContext } from "../content.jsx"
+import { useShopContext } from "../content.jsx";
 
 function Newitems() {
   const { backendUrl } = useShopContext();
 
   const { isLoading, data, error } = useQuery("fetchNewdeal", () => {
-
-    return axios.get( `${backendUrl}/api/product/list`);
-
+    return axios.get(`${backendUrl}/api/products/list`);
   });
 
   if (isLoading) {
@@ -25,7 +23,7 @@ function Newitems() {
   }
 
   if (error) {
-    console.log(error)
+    console.log(error);
     toast("We will be back", {
       position: "top-right",
       autoClose: 5000,
@@ -36,9 +34,7 @@ function Newitems() {
   }
 
   return (
-
     <>
-    
       <hr />
       <div className="px-5 py-2 gap-3 text-center pb-1">
         <ul>
@@ -70,12 +66,11 @@ function Newitems() {
             >
               <div className="flex justify-center p-4">
                 <Link to={`/preview/${item.id}`}>
-                
-                <img
-                  className="w-full h-32 object-contain"
-                  src={item.image[0]}
-                  alt={item.name || "Product"}
-                />
+                  <img
+                    className="w-full h-32 object-contain"
+                    src={item.image[0]}
+                    alt={item.name || "Product"}
+                  />
                 </Link>
               </div>
               <div className="px-4 py-2">

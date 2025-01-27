@@ -12,7 +12,7 @@ const {id} = useParams()
   // const [loading, setLoading] = useState(false);
 const {backendUrl} = useShopContext()
   const { isLoading, error, data } = useQuery("edit&delete", () => {
-    return axios.get(`${backendUrl}/api/product/list`);
+    return axios.get(`${backendUrl}/api/products/list`);
   });
 
   if (isLoading) {
@@ -27,7 +27,7 @@ const {backendUrl} = useShopContext()
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${backendUrl}/api/product/remove/${id}`);
+      await axios.delete(`${backendUrl}/api/products/remove/${id}`);
       toast("Product deleted successfully");
       window.location.reload();
     } catch (err) {
@@ -51,27 +51,27 @@ const {backendUrl} = useShopContext()
   
   return (
     <div>
-      <div className='ml-10'>
+      <div className='ml-4'>
         <Link to="/AddProduts">
-          <button type='button'>Add New Items</button>
+          <button type='button' className='bg-blue-500 text-white px-4 py-2 rounded'>Add New Items</button>
         </Link>
       </div>
       {data?.data.products.map((product) => (
-        <div key={product._id}>
+        <div key={product._id} className='m-4'>
           <div>
-            <ul className="ml-20 mr-20 mt-20 bg-slate-100 pl-10 pt-5 pb-5 pr-10 rounded-xl">
+            <ul className="bg-slate-100 p-4 rounded-xl">
               <li><img className='w-20' src={product.image[0]} alt={product.name} /></li>
               <li>
                 <div>{product.name}</div>
                 <div className='mt-1 mb-1 text-green-500 font-bold'>Active</div>
-                <ul className='gap-10'>
+                <ul className='flex gap-4'>
                   <li>
                     <Link to={`/update/${product._id}`}>
-                      <button className='hover:bg-green-700'>Edit</button>
+                      <button className='hover:bg-green-700 bg-green-500 text-white px-2 py-1 rounded'>Edit</button>
                     </Link>
                   </li>
                   <li>
-                    <button onClick={() => handleDelete(product._id)} className='hover:bg-red-700'>Delete</button>
+                    <button onClick={() => handleDelete(product._id)} className='hover:bg-red-700 bg-red-500 text-white px-2 py-1 rounded'>Delete</button>
                   </li>
                 </ul>
               </li>
