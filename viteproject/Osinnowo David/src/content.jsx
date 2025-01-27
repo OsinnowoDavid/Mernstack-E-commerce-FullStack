@@ -2,7 +2,7 @@ import {createContext, useContext} from "react"
 
 export const ShopCentext = createContext()
 const ShopcontextProvider = (props) => {
-    const backendUrl = "https://backend-e-shop-3.onrender.com"
+    const backendUrl = "https://vercel.com/davids-projects-6d9cca2d/done-e-commerce-full-stack-4v72"
     const Value = {
         backendUrl
     }
