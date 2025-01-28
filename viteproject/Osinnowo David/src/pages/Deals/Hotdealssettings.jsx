@@ -11,7 +11,7 @@ function HotDealSettings () {
 
 const {backendUrl} = useShopContext()
   const {isloading, error, data} = useQuery("edite$delet" , ()=>{
-    return axios.get(`${backendUrl}/api/hotprduct/listhotproducts`)
+    return axios.get(`${backendUrl}/api/hotprducts/listhotproducts`)
 })
 if (isloading){
     return(

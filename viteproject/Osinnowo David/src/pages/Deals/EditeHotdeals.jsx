@@ -16,7 +16,7 @@ function EditeHotdeals() {
   const [imageurl, setimageurel] = useState(false);
 
   useEffect(() => {
-    axios.get(`${backendUrl}/api/hotprduct/singlehotproducts/${+id}`)
+    axios.get(`${backendUrl}/api/hotprducts/singlehotproducts/${+id}`)
       .then((response) => {
         console.log(response.data);
         setName(response.data.product.name);

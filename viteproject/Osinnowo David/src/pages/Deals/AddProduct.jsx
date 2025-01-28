@@ -63,7 +63,7 @@ const [image1, setimage1] = useState(false);
 // image3 && formData.append("image3", image3)
 // image4 && formData.append("image4", image4)
 
-      const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
+      const response = await axios.post(`${backendUrl}/api/products/add`, formData, {
         
         headers: {
           'Content-Type': 'multipart/form-data',
